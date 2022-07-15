@@ -1,21 +1,16 @@
-//! Example: File Explorer
-//! -------------------------
-//!
-//! This is a fun little desktop application that lets you explore the file system.
-//!
-//! This example is interesting because it's mixing filesystem operations and GUI, which is typically hard for UI to do.
+#![allow(non_snake_case)]
+
 mod head;
 mod header;
-mod tabs;
 mod explorer;
+mod editor;
 
 use dioxus::prelude::*;
-use std::boxed::Box;
 use std::fs;
 use head::HEAD;
 use header::Header;
-use tabs::Tabs;
 use explorer::Explorer;
+use editor::Editor;
 
 
 fn main() {
@@ -25,80 +20,31 @@ fn main() {
     });
 }
 
-#[derive(PartialEq)]
-    enum EditorState {
-        Display,
-        Edit,
-    }
 
 pub fn App(cx: Scope) -> Element {
     let files = use_ref(&cx, || Files::new());
-    let (edit_state, set_edit_state) = use_state(&cx, || EditorState::Display);
-
-    let file = files.read().read_file();
-
     rsx!(cx, div {
-        class: "flex",
+        class: "flex flex-col",
         HEAD {},
         Header { 
             button: rsx!(cx, i { class: "material-icons", onclick: move |_| files.write().go_up(), "logout" }),
             title: rsx!(cx, h1 { "Files: " [files.read().current()]  }),
         },
-        Explorer {
-            files: files,
-            on_folder_click: move |dir_id| files.write().select_file(dir_id),
-            on_file_click: move |dir_id| files.write().enter_dir(dir_id),
-        },
-        main {
+        div {
             class: "flex",
-            Tabs {
-                div {
-                  class: "p-1 bg-blue-100",
-                  onclick: move |_| set_edit_state(EditorState::Display),
-                      "preview"
-                }
-                div {
-                  class: "p-1 bg-red-100",
-                  onclick: move |_| set_edit_state(EditorState::Edit),
-                  "edit"
-                }
+            Explorer {
+                files: files,
+                on_folder_click: move |dir_id| files.write().select_file(dir_id),
+                on_file_click: move |dir_id| files.write().enter_dir(dir_id),
+            },
+            Editor {
+              files: files,
             }
-            div {
-                class: "block",
-                files.read().err.as_ref().map(|err| {
-                    rsx! (
-                        div {
-                            code { "{err}" }
-                            button { onclick: move |_| files.write().clear_err(), "x" }
-                        }
-                    )
-                })
-                match edit_state {
-                        EditorState::Display => {
-                            rsx! {
-                                div {
-                                    class: "markdown-editor",
-                                    dangerous_inner_html: "{file}"
-                                },
-                            }},
-                        EditorState::Edit => {
-                            let value = file;
-                            rsx!{
-                                textarea {
-                                    class: "w-full h-screen",
-                                   // onchange: move |event| recipe_body.set((*event.value.clone()).to_string()),
-                                    value: "{value}"
-                                }
-                            }
-                        },
-                   },
-           }
         }
-
     })
 }
 
-struct Files {
+pub struct Files {
     path_stack: Vec<String>,
     path_names: Vec<String>,
     err: Option<String>,

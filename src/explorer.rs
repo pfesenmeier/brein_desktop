@@ -10,7 +10,7 @@ pub struct ExplorerProps<'a> {
 
 pub fn Explorer<'a>(cx: Scope<'a, ExplorerProps<'a>>) -> Element<'a> {
             rsx!(cx, div {
-                class: "flex flex-col",
+                class: "flex flex-col bg-zinc-300 w-80 h-screen",
                 cx.props.files.read().path_names.iter().enumerate().map(|(dir_id, path)| {
                     let path_end = path.split('/').last().unwrap_or(path.as_str());
                     let (icon_type, on_click): (&str, &EventHandler<'a, usize>) = if path_end.contains(".") {
@@ -20,13 +20,14 @@ pub fn Explorer<'a>(cx: Scope<'a, ExplorerProps<'a>>) -> Element<'a> {
                     };
 
                     rsx! (
-                        div { class: "folder flex", key: "{path}",
+                        button { 
+                            class: "folder flex p-3 border-2 cursor-pointer",
+                            key: "{path}",
+                            onclick: move |_| on_click.call(dir_id),
                             i { class: "material-icons",
-                                onclick: move |_| on_click.call(dir_id),
                                 "{icon_type}"
-                                p { class: "cooltip", "0 folders / 0 files" }
                             }
-                            h1 { class: "color-zinc-300", "{path_end}" }
+                            h3 { class: "pl-3", "{path_end}" }
                         }
                     )
                 })
