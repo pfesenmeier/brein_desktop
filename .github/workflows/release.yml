@@ -38,12 +38,12 @@ jobs:
         with:
           command: build
           args: --release
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tagName: v.0.0.1-alpha # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: "test release"
-          releaseBody: "testing asset uploads"
-          releaseDraft: true
-          prerelease: true 
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            target/release/file-explorer
+# Licence
