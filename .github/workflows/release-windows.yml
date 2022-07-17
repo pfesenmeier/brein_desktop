@@ -28,13 +28,15 @@ jobs:
           Invoke-WebRequest https://win.rustup.rs/ -OutFile rustup-init.exe
           .\rustup-init.exe -y --default-host=x86_64-pc-windows-msvc --default-toolchain=none
           del rustup-init.exe
-          rustup target add ${{ matrix.target }}
+          rustup target add x86_64-pc-windows-gnu
         shell: powershell
 
-      - name: Add mingw64 to path for x86_64-gnu
-        run: echo "C:\msys64\mingw64\bin" >> $GITHUB_PATH
-        if: matrix.target == 'x86_64-pc-windows-gnu' && matrix.channel == 'nightly'
-        shell: bash
+      - name: build
+        run: |
+          rustc -Vv
+          cargo -V
+          set RUST_BACKTRACE=1
+          cargo build --release
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -43,5 +45,5 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            target/release/file-explorer
+            target/release/file-explorer.exe
 # Licence
