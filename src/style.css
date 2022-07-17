@@ -6,6 +6,50 @@
     transition: .2s all;
 }
 
+/* https://stackoverflow.com/a/70720104 */
+.preview h1 {
+  font-size: 2em;
+}
+
+.preview h2 {
+  font-size: 1.5em;
+}
+
+.preview h3 {
+  font-size: 1.17em;
+}
+
+.preview h4 {
+  font-size: 1em;
+}
+
+.preview h5 {
+  font-size: .87em;
+}
+
+.preview h6 {
+  font-size: .67em;
+}
+
+.preview ul { 
+   list-style-type: disc; 
+   list-style-position: inside; 
+}
+.preview ol { 
+   list-style-type: decimal; 
+   list-style-position: inside; 
+}
+.preview ul ul, ol ul { 
+   list-style-type: circle; 
+   list-style-position: inside; 
+   margin-left: 15px; 
+}
+.preview ol ol, ul ol { 
+   list-style-type: lower-latin; 
+   list-style-position: inside; 
+   margin-left: 15px; 
+}
+
 header {
     top: 0;
     left: 0;

@@ -14,9 +14,9 @@ pub fn Explorer<'a>(cx: Scope<'a, ExplorerProps<'a>>) -> Element<'a> {
                 cx.props.files.read().path_names.iter().enumerate().map(|(dir_id, path)| {
                     let path_end = path.split('/').last().unwrap_or(path.as_str());
                     let (icon_type, on_click): (&str, &EventHandler<'a, usize>) = if path_end.contains(".") {
-                        ("description" , &cx.props.on_folder_click )
+                        ("description" , &cx.props.on_file_click )
                     } else {
-                        ("folder", &cx.props.on_file_click )
+                        ("folder", &cx.props.on_folder_click )
                     };
 
                     rsx! (
