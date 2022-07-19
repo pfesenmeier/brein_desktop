@@ -3,7 +3,7 @@
 # linux
 # then add mold
 # just build for linux
-name: 'Create release'
+name: 'Create macos release'
 
 on: 
   push:
