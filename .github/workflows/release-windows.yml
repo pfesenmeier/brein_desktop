@@ -38,6 +38,8 @@ jobs:
           set RUST_BACKTRACE=1
           cargo build --release
 
+# maybe switch to https://github.com/softprops/action-gh-release
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
