@@ -1,0 +1,42 @@
+# on branch main
+# if find a tag, create a release
+# linux
+# then add mold
+# just build for linux
+name: 'Create release'
+
+on: 
+  push:
+    branches: 
+      - main
+#    tags:
+#      - v*
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - uses: Swatinem/rust-cache@v1
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest-macos"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            target/release/file-explorer
+# Licence
