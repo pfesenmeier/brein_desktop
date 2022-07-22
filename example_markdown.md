@@ -1,21 +1,11 @@
-# H1
+# Todo list
 
-## h2
-
-- i
-- am
-- a 
-- list
-
-    aoesuntaoehuneth whitespace
-
-
-save thing filehhn
-ththnhhh
-nth
-thnhsnththsh
-# second save
-foobar
+- Cool Font [done]
+- s3 integration
+- more boxy buttons
+- make the colors make sense
+- autosave
+- show autosave progressr
 
 ## bar
 nhntshsnh

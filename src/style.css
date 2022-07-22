@@ -1,7 +1,16 @@
+@font-face {
+    font-family: 'depixel';
+    src: url('src/fonts/depixelbreit.woff2') format('woff2'),
+         url('src/fonts/depixelbreit.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'depixel', sans-serif;
     user-select: none;
     transition: .2s all;
 }
