@@ -6,6 +6,7 @@
 - make the colors make sense
 - autosave
 - show autosave progressr
+- BUG change save file to write over entire file
 
 ## bar
 nhntshsnh
