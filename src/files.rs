@@ -4,13 +4,13 @@ use std::io::Write;
 #[derive(Default, PartialEq)]
 pub struct Files {
     path_stack: Vec<String>,
-    path_names: Vec<String>,
+    pub path_names: Vec<String>,
     err: Option<String>,
     selected_file: Option<usize>,
 }
 
 impl Files {
-    fn new() -> Self {
+   pub fn new() -> Self {
         let mut files = Self {
             path_stack: vec!["./".to_string()],
             ..Default::default()
@@ -44,24 +44,24 @@ impl Files {
         }
     }
 
-    fn go_up(&mut self) {
+    pub fn go_up(&mut self) {
         if self.path_stack.len() > 1 {
             self.path_stack.pop();
         }
         self.reload_path_list();
     }
 
-    fn enter_dir(&mut self, dir_id: usize) {
+    pub fn enter_dir(&mut self, dir_id: usize) {
         let path = &self.path_names[dir_id];
         self.path_stack.push(path.clone());
         self.reload_path_list();
     }
 
-    fn select_file(&mut self, dir_id: usize) {
+    pub fn select_file(&mut self, dir_id: usize) {
         self.selected_file = Some(dir_id);
     }
 
-    fn get_file_contents(&self) -> String {
+    pub fn get_file_contents(&self) -> String {
         if let Some(dir_id) = self.selected_file {
             let path = &self.path_names[dir_id];
             let file = &fs::read(path).unwrap_or_default();
@@ -72,7 +72,7 @@ impl Files {
         }
     }
 
-    fn save_file(&self, contents: &str) -> Result<(), impl std::error::Error> {
+    pub fn save_file(&self, contents: &str) -> Result<(), impl std::error::Error> {
         if let Some(dir_id) = self.selected_file {
             let path = &self.path_names[dir_id];
             let mut file = fs::OpenOptions::new()
@@ -86,7 +86,7 @@ impl Files {
 
     }
 
-    fn current(&self) -> &str {
+    pub fn current(&self) -> &str {
         self.path_stack.last().unwrap()
     }
     fn clear_err(&mut self) {

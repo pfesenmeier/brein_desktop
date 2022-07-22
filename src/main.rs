@@ -4,14 +4,14 @@
 mod explorer;
 mod head;
 mod header;
+mod files;
 
 use dioxus::prelude::*;
 use explorer::Explorer;
 use head::HEAD;
 use header::Header;
-use std::fs;
-use std::io::Write;
 use simple_logger::SimpleLogger;
+use crate::files::Files;
 
 fn main() {
     SimpleLogger::new()
