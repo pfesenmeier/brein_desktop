@@ -75,11 +75,17 @@ impl Files {
     pub fn save_file(&self, contents: &str) -> Result<(), impl std::error::Error> {
         if let Some(dir_id) = self.selected_file {
             let path = &self.path_names[dir_id];
-            let mut file = fs::OpenOptions::new()
-                     //   .read(true)
+            let tmp_path = "".to_string() + path + ".tmp";
+            let mut tmp_file = fs::OpenOptions::new()
                         .write(true)
-                        .open(path)?;
-            file.write_all(contents.as_bytes())
+                        .create(true)
+                        .open(&tmp_path)?;
+            
+            tmp_file.write_all(contents.as_bytes())?;
+
+            fs::remove_file(path)?;
+            fs::rename(&tmp_path, path)?;
+            fs::remove_file(tmp_path)
         } else {
             Ok(())
         }

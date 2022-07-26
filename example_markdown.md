@@ -1,5 +1,8 @@
 # Todo list
 
+- Run Java
+- Run C
+
 - Cool Font [done]
 - s3 integration
 - more boxy buttons
@@ -7,11 +10,3 @@
 - autosave
 - show autosave progressr
 - BUG change save file to write over entire file
-
-## bar
-nhntshsnh
-nthnthhh
-nthtnhhhh
-
-
-123

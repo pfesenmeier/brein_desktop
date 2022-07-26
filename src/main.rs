@@ -16,7 +16,7 @@ use crate::files::Files;
 fn main() {
     SimpleLogger::new()
         .with_utc_timestamps()
-        .with_level(log::LevelFilter::Debug)
+        .with_level(log::LevelFilter::Debug) 
         .init()
         .unwrap();
     dioxus::desktop::launch_cfg(App, |c| {
@@ -26,7 +26,6 @@ fn main() {
 
 static App: Component<()> = |cx| {
     let files = use_ref(&cx, || Files::new());
-    let preview = use_state(&cx, || "".to_string());
     let buffer = use_state(&cx, || "".to_string());
 
     rsx!(cx, div {
@@ -43,13 +42,11 @@ static App: Component<()> = |cx| {
                 files: files,
                 on_folder_click: move |dir_id| {
                   files.write().enter_dir(dir_id);
-                  preview.set("".to_string());
                   buffer.set("".to_string());
                 },
                 on_file_click: move |dir_id| {
                   files.write().select_file(dir_id);
                   let file_contents = files.read().get_file_contents();
-                  preview.set(preview_file(&file_contents));
                   buffer.set(file_contents);
                 }
             },
@@ -57,14 +54,13 @@ static App: Component<()> = |cx| {
               class: "bg-red-100 p-3 flex-1 p-3",
               oninput: move |event| {
                 let input = event.value.clone();
-                preview.set(preview_file(&input));
                 buffer.set(input);
               },
               value: "{buffer}"
             }
             div {
               class: "preview p-3 bg-sky-200 flex-1 display-inline",
-              dangerous_inner_html: "{preview}"
+              dangerous_inner_html: format_args!("{}", preview_file(buffer))
             }
         }
     })
