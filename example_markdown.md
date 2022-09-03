@@ -1,12 +1,10 @@
 # Todo list
 
-- Run Java
-- Run C
-
-- Cool Font [done]
+- X Cool Font [done]
 - s3 integration
-- more boxy buttons
+- X more boxy buttons
 - make the colors make sense
 - autosave
 - show autosave progressr
-- BUG change save file to write over entire file
+- have fonts on right be bigger
+- X BUG change save file to write over entire file

@@ -32,7 +32,7 @@ static App: Component<()> = |cx| {
         class: "flex flex-col",
         HEAD {},
         Header {
-            save_button: rsx!(cx, div { class: "p-3 bg-green-300", onclick: move |_| files.write().save_file(buffer).unwrap_or_default(), "Save File" }),
+            save_button: rsx!(cx, div { class: "p-3 bg-green-300 border-2 border-r-black border-b-black border-t-white border-l-white hover:bg-green-400 active:border-r-white active:border-b-white active:border-t-black active:border-l-black", onclick: move |_| files.write().save_file(buffer).unwrap_or_default(), "Save File" }),
             back_button: rsx!(cx, i { class: "material-icons", onclick: move |_| files.write().go_up(), "logout" }),
             title: rsx!(cx, h1 { "Files: " [files.read().current()]  }),
         },

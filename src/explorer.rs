@@ -21,7 +21,7 @@ pub fn Explorer<'a>(cx: Scope<'a, ExplorerProps<'a>>) -> Element<'a> {
 
                     rsx! (
                         button { 
-                            class: "folder flex p-3 border-2 cursor-pointer",
+                            class: "folder flex p-3 border-2 border-r-black border-b-black border-l-white border-t-white cursor-pointer hover:bg-blue-700 hover:text-white active:border-l-black active:border-t-black active:border-r-white active:border-b-white",
                             key: "{path}",
                             onclick: move |_| on_click.call(dir_id),
                             i { class: "material-icons",
